@@ -6,14 +6,11 @@ const originalMeteorDebug = Meteor._debug
 const stackRegex = /^\s+at\s.+$/gm
 
 function getStackFromMessage(message) {
-  // add empty string to add the empty line at start
   const stack = []
-  // const match = stackRegex.exec(message)
   while (match = stackRegex.exec(message)) {
     stack.push(match[0].trim())
   }
   return stack
-  // return stack.join('\n')
 }
 
 function firstLine(message) {
@@ -38,13 +35,11 @@ function getBrowserInfo() {
 }
 
 Meteor.startup(() => {
-  // Initialize Logger:
   const log = new Logger();
-
-  // Initialize and enable LoggerConsole with default settings:
-  // (new LoggerConsole(log)).enable()
   (new LoggerConsole(log, {
-    enable: false,
+    format(opts) {
+      return 'Error reported to server log.'
+    },
   })).enable()
   window.onerror = (msg, url, line) => {
     log.error(msg, { file: url, onLine: line, browserInfo: getBrowserInfo() })
