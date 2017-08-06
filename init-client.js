@@ -7,12 +7,13 @@ const stackRegex = /^\s+at\s.+$/gm
 
 function getStackFromMessage(message) {
   // add empty string to add the empty line at start
-  const stack = ['']
+  const stack = []
   // const match = stackRegex.exec(message)
   while (match = stackRegex.exec(message)) {
-    stack.push(match[0])
+    stack.push(match[0].trim())
   }
-  return stack.join('\n')
+  return stack
+  // return stack.join('\n')
 }
 
 function firstLine(message) {
@@ -41,7 +42,10 @@ Meteor.startup(() => {
   const log = new Logger();
 
   // Initialize and enable LoggerConsole with default settings:
-  (new LoggerConsole(log)).enable()
+  // (new LoggerConsole(log)).enable()
+  (new LoggerConsole(log, {
+    enable: false,
+  })).enable()
   window.onerror = (msg, url, line) => {
     log.error(msg, { file: url, onLine: line, browserInfo: getBrowserInfo() })
     if (PreviousGlobalErrorHandler) {
@@ -49,13 +53,12 @@ Meteor.startup(() => {
     }
   }
 
-  Meteor._debug = (m, s) => {
+  Meteor._debug = function meteorDebug(m, s) {
     // We need to asign variables like this. Otherwise,
     // we can't see proper error messages.
     // See: https://github.com/meteorhacks/kadira/issues/193
     let message = m
     let stack = s
-
     // We hate Meteor._debug (no single usage pattern)
     if (message instanceof Error) {
       stack = message.stack
@@ -72,9 +75,8 @@ Meteor.startup(() => {
     }
     const now = (new Date().getTime())
     log.error(message, {
-      time: now,
       browserInfo: getBrowserInfo(),
-      stacks: JSON.stringify([{ at: now, events: [], stack }]) })
+      stack })
     return originalMeteorDebug.apply(this, arguments)
   }
 })
