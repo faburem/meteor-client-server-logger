@@ -2,7 +2,7 @@
 import { Tinytest } from "meteor/tinytest";
 
 // Import and rename a variable exported by client-server-logger.js.
-import { name as packageName } from "meteor/client-server-logger";
+// import { name as packageName } from "meteor/client-server-logger";
 
 // Write your tests here!
 // Here is an example.
