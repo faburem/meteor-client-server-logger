@@ -1,6 +1,6 @@
 Package.describe({
   name: 'faburem:client-server-logger',
-  version: '0.0.2',
+  version: '0.0.4',
   // Brief, one-line summary of the package.
   summary: 'Boilerplate for ostrio:logger to enable easy client side logging to the server console',
   // URL to the Git repository containing the source code for this package.
@@ -12,7 +12,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.4')
-  api.use(['ecmascript','ostrio:logger@2.0.3', 'ostrio:loggerconsole@2.0.1'], ['client', 'server'])
+  api.use(['ecmascript','ostrio:logger@2.0.4', 'ostrio:loggerconsole@2.0.2'], ['client', 'server'])
   api.mainModule('client-server-logger.js', 'server')
   api.mainModule('init-client.js', 'client')
 });
