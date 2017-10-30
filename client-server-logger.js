@@ -13,6 +13,4 @@ Meteor.startup(() => {
     //   // return `[CLIENT] ${opts.message} - ${JSON.stringify(opts.data).trim()}`
     // },
   })).enable()
-
-  logger.log('test')
 })

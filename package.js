@@ -1,6 +1,6 @@
 Package.describe({
   name: 'faburem:client-server-logger',
-  version: '0.0.4',
+  version: '0.0.5',
   // Brief, one-line summary of the package.
   summary: 'Boilerplate for ostrio:logger to enable easy client side logging to the server console',
   // URL to the Git repository containing the source code for this package.
